@@ -47,6 +47,15 @@ main {
     background-color: #ff9776;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
+.font-sans {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
 /* nav styles */
 
 .nav-links {
