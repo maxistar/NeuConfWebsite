@@ -114,3 +114,11 @@ html.dark {
     }
 
 }
+
+.speaker {
+    text-align: center;
+}
+
+.speaker img {
+    width: 40%;
+}
