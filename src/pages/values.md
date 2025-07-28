@@ -1,9 +1,9 @@
 ---
 layout: ../layouts/MarkdownLayout.astro
-title: Values
+title: Наши ценности
 ---
 
-## Наши ценности
+
 
 - **Политика**
     
