@@ -3,45 +3,64 @@ layout: ../layouts/MarkdownLayout.astro
 title: Билеты
 ---
 
-### Катя
+**Мы пока маленькие и не раскрученные, у нас нет юрлица, поэтому мы проводим конфу под эгидой встречи друзей, где все скидываются на аренду дома и еду. Деньги можно закинуть нашим оргам:**
 
-- PayPal
-  - [kaitherinaturkey@gmail.com](mailto:kaitherinaturkey@gmail.com)
-  - [**paypal.me/kaitherina](http://paypal.me/kaitherina)**
+## Катя
 
-  ![qrcode.png](attachment:3805e73e-17e3-455d-967a-4180299f5dca:qrcode.png)
+<p>
+  Мне можно перевести за билет на PayPal по мейлу 
+  <span style="display: inline-flex; align-items: center; gap: 0.3rem; position: relative;">
+    <strong id="paypalEmail">kaitherinaturkey@gmail.com</strong>
+    <button 
+      onclick="copyEmail()" 
+      title="Скопировать"
+      style="background: none; border: none; cursor: pointer; font-size: 1rem;">
+      📋
+    </button>
+    <span id="copyNotice" 
+          style="position: absolute; top: -1em; left: 15em; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease;">
+      copied!
+    </span>
+  </span>
+  или <a href="http://paypal.me/kaitherina">напрямую.</a>
+</p>
 
-- крипта
-  - TVPnFQDBMePDeRmq8jQZQJ3tAoAv5sFgbz
-- револют
-  - revtag @katef20
+<script>
+  function copyEmail() {
+    const email = document.getElementById("paypalEmail").textContent;
+    navigator.clipboard.writeText(email).then(() => {
+      const notice = document.getElementById("copyNotice");
+      notice.style.opacity = "1";
+      setTimeout(() => {
+        notice.style.opacity = "0";
+      }, 1200);
+    });
+  }
+</script>
 
-  ![Screenshot_20250512-101201.png](attachment:0b2bbbaf-94be-4516-b9d8-e2d8fc3ec205:Screenshot_20250512-101201.png)
+<p>
+  Из доступных банков у меня есть:
+  <ul>
+    <li><strong><a href="http://revolut.me/katef20">Revolut</a></strong></li>
+    <li><strong><a href="https://t.me/Kaitherina">N26</a></strong></li>
+    <li><strong><a href="https://t.me/Kaitherina">Sparkasse</a></strong></li>
+  </ul>
+</p>
 
-- n26
-  - напиши мне в тг https://t.me/Kaitherina и я скину тебе ибан для перевода
+<p>
+  Могу прислать IBAN любого из них в личку, напиши мне в <a href="https://t.me/Kaitherina">телеге.</a>
 
-    ![image.png](attachment:5f0858fe-6818-4a68-9692-428cc749afe1:image.png)
+Eщё всегда есть вариант перевести на криптокошелёк или отдать наличкой.
+</p>
 
-- наличка
+---
 
-  напиши мне в тг https://t.me/Kaitherina и мы договоримся, как ты сможешь передать деньги
+## Тимур
 
-  ![image.png](attachment:5f0858fe-6818-4a68-9692-428cc749afe1:image.png)
+- У меня тоже есть [револют](http://revolut.me/noob001)
+- Но если ты предпочитаешь классические переводы, напиши мне в [телеге,](http://t.me/noob001) и я дам все контакты. Я на авто и весьма мобильный по Берлину, так что мы найдём как пересечься.
 
 
-### Тимур
+---
 
-- револют Тимура
-
-  [revolut.me/noob001](http://revolut.me/noob001)
-
-  ![image.png](attachment:349f8eff-43bf-4e7b-9a07-a77850cd4881:image.png)
-
-- IBAN
-
-  Ты предпочитаешь классические переводы? Не проблема - напиши мне в телеге [t.me/noob001](http://t.me/noob001) и я дам все контакты.
-
-- Наличка (Предпочитаю)
-
-  Я на авто, и весьма мобильный по Берлину, так что мы найдём как пересечься. Мы, как и все - любим наличные. Напиши мне в телеге [t.me/noob001](http://t.me/noob001) ,  и мы договоримся.
+И заполни, пожалуйста, эту [форму.](https://docs.google.com/forms/d/e/1FAIpQLScWK72kPNWntwmy2qJfQtXpVfxv08GAzLCr2s8yNGI6nruaZg/viewform?pli=1) Эта информация — исключительно для более точной организации конфы. Спасибо!

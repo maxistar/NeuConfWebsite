@@ -71,7 +71,6 @@ main {
     flex: 1;
 }
 
-/* nav styles */
 .hamburger {
     padding-right: 20px;
     cursor: pointer;
@@ -93,9 +92,6 @@ main {
   font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-
-/* nav styles */
-
 .nav-links {
     width: 100%;
     top: 5rem;
@@ -110,9 +106,7 @@ main {
     text-align: center;
     padding: 10px 0;
     text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 1rem;
     font-family: 'Practice', sans-serif;
 }
 
@@ -138,6 +132,10 @@ a::before {
 a:hover::before,
 a:focus::before {
   opacity: 1;
+}
+
+.nav-links a:hover {
+    transform: scale(1.05);
 }
 
 .expanded {
@@ -216,5 +214,83 @@ html.dark {
   height: auto;
   display: block;
   mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-  /*webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);*/
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 3rem 0;
+  align-items: center;
+  justify-items: center;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.9;
+  cursor: zoom-in;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+  opacity: 1;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+  cursor: zoom-out;
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1rem;
+}
+
+footer a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+    font-family: 'Practice', sans-serif;
+    margin: 1.5rem 0;
+    color: #5b3c6b;
+}
+
+footer a:hover {
+  transform: scale(1.05);
 }

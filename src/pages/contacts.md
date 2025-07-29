@@ -3,9 +3,15 @@ layout: ../layouts/MarkdownLayout.astro
 title: Контакты
 ---
 
+У нас есть пока пустующий [инстаграм](https://www.instagram.com/neuconf_berlin/)
 
-**Тимур** в телеге: [t.me/noob001](http://t.me/noob001)
+У наших оргов есть телеграм:
+- [Катя](https://t.me/Kaitherina)
+- [Тимур](http://t.me/noob001)
 
-**Катя** в тг: https://t.me/Kaitherina
+Ну и на мейл тоже можно написать: 
+- [Кате](kaitherinayrd@gmail.com)
 
-[Купить билеты](/tickets/)
+---
+
+[**Купить билет**](/tickets/)
