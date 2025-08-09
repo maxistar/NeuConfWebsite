@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = 'Заявка на участие';
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <section class="apply">
+    <p class="lead">Если тебе неохота куда-то идти и кому-то писать, заполни форму ниже — это не покупка билета per sey, но после заполнения тебя перенаправит на страницу с контактами для оплаты. Если что‑то пойдёт не так, всё-таки придётся пойти на связь  <a href="/contacts/">с кем-то из нас.</a></p>
+    <form
+      action="https://formspree.io/f/mgvzrepv"
+      method="POST"
+      class="form"
+      onsubmit="handleSubmitting(event)"
+    >
+      <input type="hidden" name="_subject" value="NeuConf: новая заявка" />
+      <input type="hidden" name="_next" value="/tickets/" />
+      <input type="text" name="company" tabindex="-1" autocomplete="off" class="honeypot" />
+
+      <fieldset>
+        <label>Как к тебе обращаться<input name="full_name" required placeholder="Ada Lovelace" /></label>
+        <label>Email<input type="email" name="email" required placeholder="ada@gmail.com" /></label>
+        <label>Телеграм (необязательно)<input name="telegram" placeholder="@loveada" /></label>
+      </fieldset>
+      <fieldset>
+        <legend>Мой план:</legend>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="plan" value="sat" required onchange="toggleSat(this)" />
+            <span class="title">заеду в субботу (130€)</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="plan" value="fri" onchange="toggleSat(this)" />
+            <span class="title">заеду в пятницу (160€)</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="plan" value="plus1" onchange="toggleSat(this)" />
+            <span class="title">буду с +1 (190€)</span>
+          </label>
+
+          <label class="option vip">
+            <input type="radio" name="plan" value="vip" onchange="toggleSat(this)" />
+            <span class="title">беру полный VIP (330€)</span>
+          </label>
+        </div>
+
+        <div id="satOptions" class="sat-options" hidden>
+          <p class="sat-legend">Ночёвка с субботы на воскресенье:</p>
+          <label class="inline">
+            <input type="radio" name="sat_overnight" value="stay" required />
+            Останусь на ночь
+          </label>
+          <label class="inline">
+            <input type="radio" name="sat_overnight" value="no_stay" />
+            Без ночёвки
+          </label>
+          <label class="inline">
+            <input type="radio" name="sat_overnight" value="later" />
+            Решу позже
+          </label>
+          <p class="muted small">Цена 130€ не меняется — это для планирования мест на ночёвку.</p>
+        </div>
+
+        <div class="total">
+          Итого: <strong id="totalPrice">—</strong>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label>Пожелания по питанию/аллергии
+          <textarea name="food_notes" rows="3" placeholder="я веганю и не пью алкоголь"></textarea>
+        </label>
+        <label>Комментарий (необязательно)
+          <textarea name="notes" rows="3" placeholder="любой комментарий"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <label class="consent">
+          <input type="checkbox" name="policy" required />
+          <span>Я согласна/ен с <a href="/values/" target="_blank">правилами и ценностями</a> и понимаю, что эта форма — не платёж, а заявка.</span>
+        </label>
+      </fieldset>
+
+
+      <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
+      <p id="status" class="status" aria-live="polite"></p>
+      <noscript>
+        <p class="muted">После отправки вы будете перенаправлены на страницу оплаты.</p>
+      </noscript>
+    </form>
+
+    <hr/>
+    <details>
+      <summary>Как это работает</summary>
+      <ul>
+        <li>Мы получаем твою заявку на катину почту (через Formspree).</li>
+        <li>Ты автоматически попадёшь на страницу <a href="/tickets/">оплаты</a> с реквизитами.</li>
+        <li>Всё отследим и пометим твою заявку как оплаченную.</li>
+      </ul>
+    </details>
+  </section>
+
+  <script>
+  const PRICE = { sat: 130, fri: 160, plus1: 190, vip: 330 };
+
+  function toggleSat(radio) {
+    const chosen = radio?.value || document.querySelector('input[name="plan"]:checked')?.value;
+    const satBlock = document.getElementById('satOptions');
+    const totalEl  = document.getElementById('totalPrice');
+    satBlock.hidden = chosen !== 'sat';
+    document.querySelectorAll('input[name="sat_overnight"]').forEach(el => {
+      el.required = (chosen === 'sat');
+      if (chosen !== 'sat') el.checked = false;
+    });
+    totalEl.textContent = chosen ? `${PRICE[chosen]}€` : '—';
+  }
+
+  const init = () => {
+    toggleSat();
+    document.querySelectorAll('input[name="plan"]').forEach(r =>
+      r.addEventListener('change', () => toggleSat(r))
+    );
+
+    const form = document.querySelector('form.form');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      // honeypot
+      if (form.querySelector('.honeypot')?.value) { e.preventDefault(); return; }
+
+      e.preventDefault();
+      status.textContent = 'Отправляем заявку…';
+      btn.disabled = true;
+
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form),
+        });
+        // Formspree returns 200/OK or 302; treat 2xx as success
+        if (resp.ok) {
+          window.location.href = '/tickets/';
+        } else {
+          status.textContent = 'Не получилось отправить. Попробуй ещё раз или напиши нам.';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        status.textContent = 'Сеть недоступна. Попробуй ещё раз позже.';
+        btn.disabled = false;
+      }
+    });
+  };
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+
+
+<style>
+  .apply{max-width:760px; margin:0 auto; padding: 2rem 1rem}
+  .lead{opacity:.9;margin-bottom:1rem}
+  .form{display:grid;gap:1rem}
+  fieldset{border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:1rem}
+  label.consent{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;font-size:.9rem;font-weight:300}
+  label.consent span{min-width:0}
+  label.inline{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;font-weight:400}
+  input,textarea{width:100%;padding:.7rem .7rem;border-radius:8px;border:1px solid rgba(0,0,0,.2);font:inherit}
+  .btn{padding:.8rem 1.2rem;border-radius:10px;border:none;cursor:pointer;font-weight:700;background:#111;color:#fff}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .status{min-height:1.2em;font-size:.95rem;opacity:.9}
+  .muted{opacity:.7}
+  .honeypot{position:absolute!important;left:-9999px!important;opacity:0!important;height:0!important;width:0!important}
+  .embed{aspect-ratio:9/16;max-height:80vh}.embed iframe{width:100%;height:100%;border:0}
+  .options{display:grid;gap:.75rem}
+  @media (min-width:640px){.options{grid-template-columns:1fr 1fr}}
+  .option{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;padding:.4rem .5rem;border-radius:8px;background:rgba(255,255,255,.25)}
+  .option:has(input:checked){background:rgba(106,46,125,.12)}
+  .sat-options{margin-top:.75rem;padding:.6rem .7rem;border:1px dashed rgba(0,0,0,.2);border-radius:8px;background:rgba(255,255,255,.2)}
+  .sat-options .inline{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.5rem}
+  .sat-legend{margin:0 0 .4rem;font-weight:600}.total{margin-top:.75rem}
+</style>
+
+
+</BaseLayout>
