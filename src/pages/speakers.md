@@ -3,7 +3,26 @@ layout: ../layouts/MarkdownLayout.astro
 title: Спикеры и темы докладов
 ---
 
-<div class="talk">
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/AGLAIA.png)
+
+[**Аглая Цидулко**](https://t.me/Vesfir)
+</div>
+
+**КОД ЖИЗНИ: ЧТО ПОЛУЧИТСЯ, ЕСЛИ СЛОВО _DNA_ ЗАШИФРОВАТЬ ШИФРОМ ЦЕЗАРЯ?**
+
+Ответ — SCP. 
+И именно так в трёх буквах можно описать, чем занимается биоинформатика. Sequencing, Coding, Processing. 
+
+Аглая расскажет про биоинформатику: от вопроса "в чём больше символов — в винде или в геноме бактерии?" до самых серьёзных инструментов современной науки. Начнём с биологического ликбеза: центральная догма биологии, ДНК, ГБ данных (секвенирование, ПЦР и всё такое). Затем — к алгоритмам: как собрать геном, найти мутации и предсказать структуру белка. И разберём реальные кейсы: CRISPR, молекулярный докинг в drug design и эволюцию — от китов до человека через мутации в одном белке. А ещё бонусом — биоинформатика вне молекул: ML для анализа поведения и обработка сигналов для нейробиологии.
+
+</div>
+
+---
+
+<div class="talk" style="text-align: justify">
 <div class="speaker">
   
 ![](/images/ANTON.png)
@@ -19,7 +38,7 @@ title: Спикеры и темы докладов
 
 ---
 
-<div class="talk">
+<div class="talk" style="text-align: justify">
 <div class="speaker">
   
 ![](/images/LENA.png)
@@ -35,7 +54,7 @@ title: Спикеры и темы докладов
 
 ---
 
-<div class="talk">
+<div class="talk" style="text-align: justify">
 <div class="speaker">
   
 ![](/images/ZEN.png)
