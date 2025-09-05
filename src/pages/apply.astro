@@ -26,22 +26,22 @@ const pageTitle = 'Заявка на участие';
         <div class="options">
           <label class="option">
             <input type="radio" name="plan" value="sat" required onchange="toggleSat(this)" />
-            <span class="title">заеду в субботу (130€)</span>
+            <span class="title">заеду в субботу (160€)</span>
           </label>
 
           <label class="option">
             <input type="radio" name="plan" value="fri" onchange="toggleSat(this)" />
-            <span class="title">заеду в пятницу (160€)</span>
+            <span class="title">заеду в пятницу (190€)</span>
           </label>
 
           <label class="option">
             <input type="radio" name="plan" value="plus1" onchange="toggleSat(this)" />
-            <span class="title">буду с +1 (190€)</span>
+            <span class="title">буду с +1 (230€)</span>
           </label>
 
           <label class="option vip">
             <input type="radio" name="plan" value="vip" onchange="toggleSat(this)" />
-            <span class="title">беру полный VIP (330€)</span>
+            <span class="title">беру полный VIP (380€)</span>
           </label>
         </div>
 
@@ -103,7 +103,7 @@ const pageTitle = 'Заявка на участие';
   </section>
 
   <script>
-  const PRICE = { sat: 130, fri: 160, plus1: 190, vip: 330 };
+  const PRICE = { sat: 160, fri: 190, plus1: 230, vip: 380 };
 
   function toggleSat(radio) {
     const chosen = radio?.value || document.querySelector('input[name="plan"]:checked')?.value;
