@@ -57,6 +57,13 @@ h1 {
     color: #3B60BC;
 }
 
+@media (max-width: 635px) {
+  h1 {
+    font-size: 2rem;
+    margin: 2rem 0;
+  }
+}
+
 h2 {
     font-family: 'Practice', sans-serif;
     margin: 1.5rem 0;
@@ -72,19 +79,6 @@ main {
     flex: 1;
 }
 
-.hamburger {
-    padding-right: 20px;
-    cursor: pointer;
-}
-
-.hamburger .line {
-    display: block;
-    width: 40px;
-    height: 5px;
-    margin-bottom: 10px;
-    background-color: #5b3c6b;
-}
-
 .text-justify {
   text-align: justify;
 }
@@ -97,14 +91,14 @@ main {
     width: 100%;
     top: 5rem;
     left: 0;
-    background-color: #5b3c6b;
+    background-color: transparent;
     display: none;
     margin: 0;
 }
 
 .nav-links a {
     display: block;
-    text-align: center;
+    text-align: start;
     padding: 10px 0;
     text-decoration: none;
     font-size: 1rem;
@@ -164,12 +158,34 @@ html.dark {
     .nav-links a {
         display: inline-block;
         padding: 15px 20px;
+        color: #5b3c6b;
     }
 
     .hamburger {
         display: none;
     }
+}
 
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+
+.hamburger {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.hamburger .line {
+  display: block;
+  width: 32px;
+  height: 4px;
+  background-color: #5b3c6b;
+  border-radius: 2px;
 }
 
 .speaker {
@@ -294,4 +310,23 @@ footer a {
 
 footer a:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 635px) {
+  footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  footer a {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (min-width: 636px) {
+  .hamburger {
+    display: none !important;
+  }
 }
