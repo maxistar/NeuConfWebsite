@@ -1,0 +1,237 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = 'Билеты';
+---
+<BaseLayout {pageTitle}>
+  <section >
+    <ul>
+      <li>полный билет — <b>120 евро</b> (ночёвка сб-вск включена) </li>
+      <li>зови своего/свою +1 — <b>60 евро</b> (без ночёвки)</li>
+      <li>ночёвка с пятницы на субботу (любая свободная комната, место не закрепляется) — <b>+30 евро к основному билету</b></li>
+      <li>VIP-пакет — <b>350 евро</b>: <b>две ночи</b> с пятницы по воскресенья на двоих, <b>отдельная запирающаяся комната</b> на 3-м этаже, ужин в пятницу вечером и завтрак в субботу утром, <b>просекко</b>, <b>трансфер</b> от и до станции в дни заезда и выезда.</li>
+    </ul>
+
+    <p>Мы пока маленькие и не раскрученные, у нас нет юрлица, поэтому мы проводим конфу под эгидой встречи друзей,
+      где все скидываются на аренду дома и еду. Деньги можно закинуть нашим<a href="/contacts/">оргам.</a></p>
+
+    <details class="apply-dropdown">
+      <summary>Подать заявку</summary>
+      <div class="apply">
+        <p class="lead">Специально для интровертивных булочек мы добавили форму, которую можно заполнить и просто прийти на конфу.
+Это не покупка билета, а только заявка.
+После отправки ты попадёшь на страницу с контактами для оплаты.</p>
+        <form
+          action="https://formspree.io/f/mgvzrepv"
+          method="POST"
+          class="form content"
+        >
+          <input type="hidden" name="_subject" value="NeuConf: новая заявка" />
+          <input type="hidden" name="_next" value="/tickets/" />
+          <input type="text" name="company" tabindex="-1" autocomplete="off" class="honeypot" />
+
+          <fieldset>
+            <label>Как к тебе обращаться<input name="full_name" required placeholder="Ada Lovelace" /></label>
+            <label>Email<input type="email" name="email" required placeholder="ada@gmail.com" /></label>
+            <label>Телеграм (необязательно)<input name="telegram" placeholder="@loveada" /></label>
+          </fieldset>
+          <fieldset>
+            <legend>Мой план:</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="plan" value="sat" required />
+                <span class="title">заеду в субботу (120€)</span>
+              </label>
+
+              <label class="option">
+                <input type="radio" name="plan" value="fri" />
+                <span class="title">заеду в пятницу (150€)</span>
+              </label>
+
+              <label class="option">
+                <input type="radio" name="plan" value="plus1" />
+                <span class="title">буду с +1 (150€)</span>
+              </label>
+
+              <label class="option vip">
+                <input type="radio" name="plan" value="vip" />
+                <span class="title">беру полный VIP (350€)</span>
+              </label>
+            </div>
+
+            <div id="satOptions" class="sat-options" hidden>
+              <p class="sat-legend">Ночёвка с субботы на воскресенье:</p>
+              <label class="inline">
+                <input type="radio" name="sat_overnight" value="stay" />
+                Останусь на ночь
+              </label>
+              <label class="inline">
+                <input type="radio" name="sat_overnight" value="no_stay" />
+                Без ночёвки
+              </label>
+              <label class="inline">
+                <input type="radio" name="sat_overnight" value="later" />
+                Решу позже
+              </label>
+              <p class="muted small">Цена 120€ не меняется — это для планирования мест на ночёвку.</p>
+            </div>
+
+            <div class="total">
+              Итого: <strong id="totalPrice">—</strong>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <label>Пожелания по питанию/аллергии
+              <textarea name="food_notes" rows="3" placeholder="я веганю и не пью алкоголь"></textarea>
+            </label>
+            <label>Комментарий (необязательно)
+              <textarea name="notes" rows="3" placeholder="любой комментарий"></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <label class="consent">
+              <input type="checkbox" name="policy" required />
+              <span>Я согласна/ен с <a href="/values/" target="_blank">правилами и ценностями</a> и понимаю, что эта форма — не платёж, а заявка.</span>
+            </label>
+          </fieldset>
+
+
+          <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
+          <p id="status" class="status" aria-live="polite"></p>
+          <noscript>
+            <p class="muted">После отправки вы будете перенаправлены на страницу оплаты.</p>
+          </noscript>
+        </form>
+      </div>
+    </details>
+  </section>
+</BaseLayout>
+
+<script>
+  const PRICE = { sat: 120, fri: 150, plus1: 180, vip: 350 };
+
+  function toggleSat(chosenValue) {
+    const satBlock = document.getElementById('satOptions');
+    const totalEl  = document.getElementById('totalPrice');
+    if (!satBlock || !totalEl) return;
+
+    const showSatOptions = chosenValue === 'sat';
+    satBlock.hidden = !showSatOptions;
+    document.querySelectorAll('input[name="sat_overnight"]').forEach(el => {
+      el.required = showSatOptions;
+      if (!showSatOptions) el.checked = false;
+    });
+
+    totalEl.textContent = chosenValue ? `${PRICE[chosenValue]}€` : '—';
+  }
+
+  function init() {
+    const planRadios = document.querySelectorAll('input[name="plan"]');
+    planRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        const chosen = document.querySelector('input[name="plan"]:checked')?.value;
+        toggleSat(chosen);
+      });
+    });
+
+    // Run on init to set initial state
+    const chosen = document.querySelector('input[name="plan"]:checked')?.value;
+    toggleSat(chosen);
+
+    const form = document.querySelector('form.form');
+    if (!form) return;
+
+    const status = document.getElementById('status');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      if (form.querySelector('.honeypot')?.value) { e.preventDefault(); return; }
+
+      e.preventDefault();
+      status.textContent = 'Отправляем заявку…';
+      btn.disabled = true;
+
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form),
+        });
+        if (resp.ok) {
+          window.location.href = '/tickets/';
+        } else {
+          status.textContent = 'Не получилось отправить. Попробуй ещё раз или напиши нам.';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        status.textContent = 'Сеть недоступна. Попробуй ещё раз позже.';
+        btn.disabled = false;
+      }
+    });
+  }
+
+  // Use DOMContentLoaded for robust script execution
+  document.addEventListener('DOMContentLoaded', init);
+  // Also keep astro:page-load for client-side navigation
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  .apply-dropdown {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .apply {
+    margin-top: 1rem;
+    padding-top: 0;
+    border-top: none;
+  }
+  .lead {
+    opacity: .9;
+    margin-bottom: 1rem;
+  }
+  .form{display:grid;gap:1rem}
+  fieldset{border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:1rem}
+
+  /* Fix for justified labels and improve layout */
+  label {
+    text-align: left; /* Override global justify for all labels */
+    display: block; /* Ensure consistent block-level behavior */
+  }
+
+  /* Use flexbox for a prettier layout on text/textarea fields */
+  fieldset > label:not(.option):not(.inline):not(.consent) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem; /* Adds a nice space between the label text and the input */
+  }
+
+  label.consent{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;font-size:.9rem;font-weight:300}
+  label.consent span{min-width:0}
+  label.inline{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;font-weight:400}
+  input,textarea{width:100%;padding:.7rem .7rem;border-radius:8px;border:1px solid rgba(0,0,0,.2);font:inherit}
+  .btn{padding:.8rem 1.2rem;border-radius:10px;border:none;cursor:pointer;font-weight:700;background:#111;color:#fff}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .status{min-height:1.2em;font-size:.95rem;opacity:.9}
+  .muted{opacity:.7}
+  .honeypot{position:absolute!important;left:-9999px!important;opacity:0!important;height:0!important;width:0!important}
+  .options{display:grid;gap:.75rem}
+  @media (min-width:640px){.options{grid-template-columns:1fr 1fr}}
+  .option{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.4rem .5rem;border-radius:8px;background:rgba(255,255,255,.25)}
+  .option:has(input:checked){background:rgba(106,46,125,.12)}
+  .sat-options{margin-top:.75rem;padding:.6rem .7rem;border:1px dashed rgba(0,0,0,.2);border-radius:8px;background:rgba(255,255,255,.2)}
+  .sat-options .inline{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.5rem}
+  .sat-legend{margin:0 0 .4rem;font-weight:600}.total{margin-top:.75rem}
+</style>
