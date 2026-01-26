@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = 'Билеты';
+const pageTitle = 'Участие';
 ---
 <BaseLayout {pageTitle}>
   <section >
+    <p>на самом деле даже не билет, а взнос на покрытие расходов</p>
     <ul>
       <li>полный билет — <b>120 евро</b> (ночёвка сб-вск включена) </li>
       <li>зови своего/свою +1 — <b>60 евро</b> (без ночёвки)</li>
@@ -26,7 +27,7 @@ const pageTitle = 'Билеты';
           class="form content"
         >
           <input type="hidden" name="_subject" value="NeuConf: новая заявка" />
-          <input type="hidden" name="_next" value="/tickets/" />
+          <input type="hidden" name="_next" value="/participate/" />
           <input type="text" name="company" tabindex="-1" autocomplete="off" class="honeypot" />
 
           <fieldset>
@@ -159,7 +160,7 @@ const pageTitle = 'Билеты';
           body: new FormData(form),
         });
         if (resp.ok) {
-          window.location.href = '/tickets/';
+          window.location.href = '/participate/';
         } else {
           status.textContent = 'Не получилось отправить. Попробуй ещё раз или напиши нам.';
           btn.disabled = false;

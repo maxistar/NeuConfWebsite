@@ -6,19 +6,21 @@ title: Спикеры и темы докладов
 <div class="talk" style="text-align: justify">
 <div class="speaker">
   
-![](/images/placeholder.png)
+![](/images/VALERII.jpg)
 
-[**Тут будет имя спикера**](https://t.me/neuconf)
+[**Валерий Жила**](https://de.linkedin.com/in/valerii-zhyla)
 </div>
 
-**А ТУТ БУДЕТ НАЗВАНИЕ ДОКЛАДА**
+**AI-АГЕНТЫ БЕЗ ИЛЛЮЗИЙ: ХАЙП, СЛОЖНОСТИ, ПРОДАКШЕН**
 
-А тут будут детали. Следите за обновлениями!
+Валерий разберёт agentic workflows: чем они отличаются от чатов и почему хайп не равен пользе. Поговорим про MCP, оркестрацию и tradeoffs, а затем — про ограничения autoregressive-моделей и compounding errors. Что ломается в memory/context management, сколько стоит reasoning и какие есть hidden costs. 
+
+В финале — продакшен: reliability/eval, как понять, что агент “сработал”, где нужен human-in-the-loop, и почему enterprise-лицензии и data residency внезапно решают всё.
 
 </div>
 
 <details>
-<summary>Пока вы ждете анонсов, посмотрите, кто выступал у нас в прошлый раз (сентябрь 2025)</summary>
+<summary>Смотрите, кто выступал у нас в прошлый раз (сентябрь 2025)</summary>
 
 <div class="talk" style="text-align: justify">
 <div class="speaker">
@@ -80,4 +82,4 @@ Zen расскажет про Bare-Metal и Reverse-Engineering, как рабо
 А потом — слайды! квест: дизассемблируем прошивку. В общем, и послушаем, и ручками пособираем; приносите свои ноуты, поднимайте линуксы, быстрый интернет обещает хозяин дома, так что безудержному веселью не будет пределов!
 </div></details>
 
-[**Купить билет**](/tickets/)
+[**Присоединиться**](/participate/)

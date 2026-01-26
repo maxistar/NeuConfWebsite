@@ -6,7 +6,7 @@ title: Контакты
 ## Катя
 
 <p>
-  Мне можно перевести за билет на PayPal по мейлу 
+  Мне можно перевести за участие на PayPal по мейлу 
   <span style="display: inline-flex; align-items: center; gap: 0.3rem; position: relative;">
     <strong id="paypalEmail">kaitherinaturkey@gmail.com</strong>
     <button 
@@ -52,4 +52,4 @@ Eщё всегда есть вариант перевести на крипто�
 
 
 
-[**Купить билеты**](/tickets/)
+[**Присоединиться**](/participate/)
