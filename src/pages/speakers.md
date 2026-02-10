@@ -188,12 +188,4 @@ Zen расскажет про Bare-Metal и Reverse-Engineering, как рабо
   .talk-more .talk-description {
     margin-top: 0.75rem;
   }
-  @media (min-width: 636px) {
-    .talk-more summary {
-      display: none;
-    }
-    .talk-more .talk-description {
-      display: block !important;
-    }
-  }
 </style>
