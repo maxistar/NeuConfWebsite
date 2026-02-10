@@ -53,3 +53,11 @@ Eщё всегда есть вариант перевести на крипто�
 
 
 [**Присоединиться**](/participate/)
+
+<style>
+  hr {
+    border: 0;
+    border-top: 1px solid #BFD88D;
+    margin: 1.5rem 0;
+  }
+</style>

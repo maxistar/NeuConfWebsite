@@ -31,7 +31,7 @@ p.std-ref {
 
 html {
     font-family: sans-serif;
-    background: linear-gradient(to bottom right, #F7FDEB 0%, #323E16 100%);
+    background: linear-gradient(170deg, #FDFEFB 0%, #ECFAD3 55%, #BFD88D 75%, #45591F 100%);
 }
 
 body {
@@ -55,20 +55,21 @@ h1 {
     margin: 3rem 0;
     font-size: 3rem;
     font-family: 'Practice', sans-serif;
-    color: #323E16;
+    color: #45591F;
 }
 
 @media (max-width: 635px) {
   h1 {
     font-size: 2rem;
     margin: 2rem 0;
+    text-align: left;
   }
 }
 
 h2 {
     font-family: 'Practice', sans-serif;
     margin: 1.5rem 0;
-    color: #45591F;
+    color: #99AA6F;
 }
 
 a {
@@ -102,7 +103,7 @@ main {
     text-align: start;
     padding: 10px 0;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-family: 'Practice', sans-serif;
     color: #45591F;
 }
@@ -316,8 +317,8 @@ footer a {
   text-decoration: none;
   transition: transform 0.2s ease, color 0.2s ease;
     font-family: 'Practice', sans-serif;
-    margin: 1.5rem 0;
-    color: #99AA6F;
+    margin: 0.25rem 0.35rem;
+    color: #45591F;
 }
 
 footer a:hover {
@@ -331,14 +332,14 @@ footer a:focus {
 
 @media (max-width: 635px) {
   footer {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    flex-direction: row;
+    gap: 0.4rem;
+    padding: 0.5rem 0.5rem 0.75rem;
   }
 
   footer a {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
+    margin: 0.15rem 0.1rem;
+    font-size: 0.95rem;
   }
 }
 

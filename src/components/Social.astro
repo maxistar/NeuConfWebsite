@@ -1,11 +1,31 @@
 ---
 const { platform, link } = Astro.props;
+const label = `${platform}`;
+const iconSrc = `/icons/${platform}.png`;
 ---
-<a href={`${link}`}>{platform}</a>
+<a href={`${link}`} aria-label={label} title={label}>
+  <img class="icon" src={iconSrc} alt={label} loading="lazy" />
+</a>
 
 <style>
     a {
-        padding: 0.5rem 1rem;
+        padding: 0.4rem;
         text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #3B443B;
+    }
+    .icon {
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        object-fit: contain;
+    }
+    @media (min-width: 636px) {
+        .icon {
+            width: 42px;
+            height: 42px;
+        }
     }
 </style>
