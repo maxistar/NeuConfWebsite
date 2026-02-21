@@ -45,6 +45,43 @@ title: Спикеры и темы докладов
 
 </div>
 
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/DIMA_MITTOV.jpeg)
+
+[**Дмитрий Миттов**](https://github.com/dmittov)
+</div>
+
+**ДЕКОНСТРУКЦИЯ КОДИНГ АГЕНТОВ** <details class="talk-more">
+<summary><span class="more-icon">...</span><span class="sr-only">Подробнее</span></summary>
+<div class="talk-description">
+
+Разговор пойдёт про Open-Source агента Gemini CLI от Google. Дмитрий расскажет, как собрать агента лично для себя. Поговорит про практические проблемы, даст пару примеров, сконцентрируется на воспроизводимых техниках prompt engineering.  И более того, он пообещал нам, что с радостью продолжит разговор в кулуарах после доклада - так что ловите его! (но только аккуратно)
+</div>
+</details>
+
+</div>
+
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/AGLAIA.png)
+
+[**Аглая Цидулко**](https://t.me/Vesfir)
+</div>
+
+**В ГОРОДАХ НЕ ТОЛЬКО ЛЮДИ** <details class="talk-more">
+<summary><span class="more-icon">...</span><span class="sr-only">Подробнее</span></summary>
+<div class="talk-description">
+
+Ответ на практически каждый второй вопрос про конфу — а у вас там только про айти? Нет! Не только! Вот в этот раз будет авторская лекция про урбанизм и географию, про то, как формируются городские флора и фауна, почему в городах средней полосы России мы видим одних представителей флоры и фауны, а в европейских — совсем других? Насколько эта разница действительно велика, и откуда она берётся?
+
+</div>
+</details>
+
+</div>
+
 <details>
 <summary>Смотрите, кто выступали у нас в прошлый раз (сентябрь 2025)</summary>
 
