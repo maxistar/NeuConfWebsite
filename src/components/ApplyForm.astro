@@ -21,18 +21,19 @@
       </label>
 
       <label class="option">
-        <input type="radio" name="plan" value="fri" onchange="toggleSat(this)" />
-        <span class="title">заеду в пятницу (160€)</span>
-      </label>
-
-      <label class="option">
         <input type="radio" name="plan" value="plus1" onchange="toggleSat(this)" />
         <span class="title">буду с +1 (190€)</span>
       </label>
 
       <label class="option vip">
         <input type="radio" name="plan" value="vip" onchange="toggleSat(this)" />
-        <span class="title">беру полный VIP (330€)</span>
+        <span class="title">беру полный VIP (330€) — остался 1</span>
+      </label>
+
+      <label class="option is-disabled" aria-disabled="true">
+        <input type="radio" name="plan" value="fri" disabled />
+        <span class="title">заеду в пятницу (160€)</span>
+        <span class="note">ранний заезд в пятницу распродан</span>
       </label>
     </div>
 
@@ -157,6 +158,8 @@
   @media (min-width:640px){.options{grid-template-columns:1fr 1fr}}
   .option{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;padding:.4rem .5rem;border-radius:8px;background:rgba(222,250,154,0.5)}
   .option:has(input:checked){background:rgba(174,222,78,0.35)}
+  .option.is-disabled{opacity:.6}
+  .option.is-disabled .note{grid-column:2;font-size:.9rem;opacity:.8}
   .sat-options{margin-top:.75rem;padding:.6rem .7rem;border:1px dashed rgba(0,0,0,.2);border-radius:8px;background:rgba(236,250,211,0.6)}
   .sat-options .inline{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.5rem}
   .sat-legend{margin:0 0 .4rem;font-weight:600}.total{margin-top:.75rem}
