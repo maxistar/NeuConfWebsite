@@ -6,8 +6,8 @@ const pageTitle = 'Участие';
   <section >
     <p>на самом деле даже не билет, а взнос на покрытие расходов</p>
     <ul>
-      <li>полный билет — <b>120 евро</b> (ночёвка сб-вск включена) </li>
-      <li>зови своего/свою +1 — <b>60 евро</b> (без ночёвки)</li>
+      <li>полный билет — <b>140 евро</b> (ночёвка сб-вск включена) </li>
+      <li>зови своего/свою +1 — <b>70 евро</b> (без ночёвки)</li>
       <li>VIP-пакет — <b>350 евро</b>: <b>две ночи</b> с пятницы по воскресенья на двоих, <b>отдельная запирающаяся комната</b> на 3-м этаже, ужин в пятницу вечером и завтрак в субботу утром, <b>просекко</b>, <b>трансфер</b> от и до станции в дни заезда и выезда. <b>VIP распродан</b>.</li>
     </ul>
 
@@ -39,12 +39,12 @@ const pageTitle = 'Участие';
             <div class="options">
               <label class="option">
                 <input type="radio" name="plan" value="sat" required />
-                <span class="title">заеду в субботу (120€)</span>
+                <span class="title">заеду в субботу (140€)</span>
               </label>
 
               <label class="option">
                 <input type="radio" name="plan" value="plus1" />
-                <span class="title">буду с +1 (180€)</span>
+                <span class="title">буду с +1 (210€)</span>
               </label>
 
               <label class="option vip is-disabled" aria-disabled="true">
@@ -74,7 +74,7 @@ const pageTitle = 'Участие';
                 <input type="radio" name="sat_overnight" value="later" />
                 Решу позже
               </label>
-              <p class="muted small">Цена 120€ не меняется — это для планирования мест на ночёвку.</p>
+              <p class="muted small">Цена 140€ не меняется — это для планирования мест на ночёвку.</p>
             </div>
 
             <div class="total">
@@ -111,7 +111,7 @@ const pageTitle = 'Участие';
 </BaseLayout>
 
 <script>
-  const PRICE = { sat: 120, fri: 150, plus1: 180, vip: 350 };
+  const PRICE = { sat: 140, fri: 150, plus1: 210, vip: 350 };
 
   function toggleSat(chosenValue) {
     const satBlock = document.getElementById('satOptions');
