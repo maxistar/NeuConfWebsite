@@ -16,43 +16,46 @@
     <legend>Мой план:</legend>
     <div class="options">
       <label class="option">
-        <input type="radio" name="plan" value="sat" required onchange="toggleSat(this)" />
-        <span class="title">заеду в субботу (130€)</span>
+        <input type="radio" name="plan" value="super" required />
+        <span class="title">super early bird (110€)</span>
+        <span class="note">доступно сейчас, всего 5 билетов</span>
       </label>
 
-      <label class="option">
-        <input type="radio" name="plan" value="plus1" onchange="toggleSat(this)" />
-        <span class="title">буду с +1 (190€)</span>
-      </label>
-
-      <label class="option vip is-disabled" aria-disabled="true">
-        <input type="radio" name="plan" value="vip" disabled />
-        <span class="title">беру полный VIP (330€)</span>
-        <span class="note">VIP распродан</span>
+      <label class="option vip">
+        <input type="radio" name="plan" value="vip" />
+        <span class="title">VIP early bird (350€)</span>
+        <span class="note">доступно сейчас</span>
       </label>
 
       <label class="option is-disabled" aria-disabled="true">
-        <input type="radio" name="plan" value="fri" disabled />
-        <span class="title">заеду в пятницу (160€)</span>
-        <span class="note">ранний заезд в пятницу распродан</span>
+        <input type="radio" name="plan" value="early" disabled />
+        <span class="title">early bird (120€)</span>
+        <span class="note">потом будет +35€ за пятницу и +60€ за +1, всего 5 билетов</span>
+      </label>
+
+      <label class="option is-disabled" aria-disabled="true">
+        <input type="radio" name="plan" value="regular" disabled />
+        <span class="title">основной билет (130€)</span>
+        <span class="note">позже будет +45€ за пятницу и +70€ за +1</span>
       </label>
     </div>
 
-    <div id="satOptions" class="sat-options" hidden>
-      <p class="sat-legend">Ночёвка с субботы на воскресенье:</p>
-      <label class="inline">
-        <input type="radio" name="sat_overnight" value="stay" required />
-        Останусь на ночь
+    <div id="superAddons" class="addons" hidden>
+      <p class="addons-title">Допы к super early bird:</p>
+      <label class="addon-option">
+        <input type="checkbox" name="plus_one" value="yes" />
+        <span>добавить +1 на субботу (+60€)</span>
       </label>
-      <label class="inline">
-        <input type="radio" name="sat_overnight" value="no_stay" />
-        Без ночёвки
+      <p class="addons-note">+1 приходит только на субботу и без ночёвки с субботы на воскресенье.</p>
+      <label class="addon-option addon-inline">
+        <input type="checkbox" name="friday_addon_enabled" value="yes" />
+        <span>добавить ранний заезд в пятницу</span>
+        <select name="friday_addon_count">
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
       </label>
-      <label class="inline">
-        <input type="radio" name="sat_overnight" value="later" />
-        Решу позже
-      </label>
-      <p class="muted small">Цена 130€ не меняется — это для планирования мест на ночёвку.</p>
+      <p class="addons-note">Можно добавить пятницу за себя или за вас двоих, если берёшь +1.</p>
     </div>
 
     <div class="total">
@@ -85,26 +88,48 @@
 </form>
 
 <script>
-  const PRICE = { sat: 130, fri: 160, plus1: 190, vip: 330 };
+  const BASE_PRICE = { super: 110, vip: 350 };
+  const SUPER_ADDONS = { plus_one: 60, friday_addon: 30 };
 
-  function toggleSat(radio) {
-    const chosen = radio?.value || document.querySelector('input[name="plan"]:checked')?.value;
-    const satBlock = document.getElementById('satOptions');
-    const totalEl  = document.getElementById('totalPrice');
-    if (!satBlock || !totalEl) return;
+  function updateTotal() {
+    const chosen = document.querySelector('input[name="plan"]:checked')?.value;
+    const totalEl = document.getElementById('totalPrice');
+    const addonsBlock = document.getElementById('superAddons');
+    const plusOne = document.querySelector('input[name="plus_one"]');
+    const fridayAddonEnabled = document.querySelector('input[name="friday_addon_enabled"]');
+    const fridayAddonCount = document.querySelector('select[name="friday_addon_count"]');
+    if (!totalEl || !addonsBlock || !plusOne || !fridayAddonEnabled || !fridayAddonCount) return;
 
-    satBlock.hidden = chosen !== 'sat';
-    document.querySelectorAll('input[name="sat_overnight"]').forEach(el => {
-      el.required = (chosen === 'sat');
-      if (chosen !== 'sat') el.checked = false;
-    });
-    totalEl.textContent = chosen ? `${PRICE[chosen]}€` : '—';
+    const isSuper = chosen === 'super';
+    addonsBlock.hidden = !isSuper;
+    plusOne.disabled = !isSuper;
+    fridayAddonEnabled.disabled = !isSuper;
+    fridayAddonCount.disabled = !isSuper;
+
+    if (!isSuper) {
+      plusOne.checked = false;
+      fridayAddonEnabled.checked = false;
+      fridayAddonCount.value = '1';
+    }
+
+    fridayAddonCount.disabled = !isSuper || !fridayAddonEnabled.checked;
+
+    if (!chosen) {
+      totalEl.textContent = '—';
+      return;
+    }
+
+    let total = BASE_PRICE[chosen] ?? 0;
+    if (isSuper && plusOne.checked) total += SUPER_ADDONS.plus_one;
+    if (isSuper && fridayAddonEnabled.checked) total += Number(fridayAddonCount.value || 1) * SUPER_ADDONS.friday_addon;
+
+    totalEl.textContent = `${total}€`;
   }
 
   const init = () => {
-    toggleSat();
-    document.querySelectorAll('input[name="plan"]').forEach(r =>
-      r.addEventListener('change', () => toggleSat(r))
+    updateTotal();
+    document.querySelectorAll('input[name="plan"], input[name="plus_one"], input[name="friday_addon_enabled"], select[name="friday_addon_count"]').forEach(r =>
+      r.addEventListener('change', updateTotal)
     );
 
     const form = document.querySelector('form.form');
@@ -160,8 +185,12 @@
   .option{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;padding:.4rem .5rem;border-radius:8px;background:rgba(222,250,154,0.5)}
   .option:has(input:checked){background:rgba(174,222,78,0.35)}
   .option.is-disabled{opacity:.6}
-  .option.is-disabled .note{grid-column:2;font-size:.9rem;opacity:.8}
-  .sat-options{margin-top:.75rem;padding:.6rem .7rem;border:1px dashed rgba(0,0,0,.2);border-radius:8px;background:rgba(236,250,211,0.6)}
-  .sat-options .inline{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.5rem}
-  .sat-legend{margin:0 0 .4rem;font-weight:600}.total{margin-top:.75rem}
+  .option .note{grid-column:2;font-size:.9rem;opacity:.8}
+  .addons{margin-top:1rem;padding:.85rem 1rem;border:1px dashed rgba(0,0,0,.2);border-radius:8px;background:rgba(236,250,211,0.6)}
+  .addons-title{margin:0 0 .65rem;font-weight:600}
+  .addon-option{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;font-weight:400}
+  .addon-inline{grid-template-columns:auto 1fr auto;gap:.6rem}
+  .addon-inline select{width:auto;min-width:4.5rem;padding:.35rem .5rem}
+  .addons-note{margin:.35rem 0 .75rem 1.75rem;font-size:.92rem;opacity:.8}
+  .total{margin-top:.75rem}
 </style>
