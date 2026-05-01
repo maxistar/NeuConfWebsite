@@ -15,10 +15,10 @@
   <fieldset>
     <legend>Мой план:</legend>
     <div class="options">
-      <label class="option">
-        <input type="radio" name="plan" value="super" required />
+      <label class="option is-disabled" aria-disabled="true">
+        <input type="radio" name="plan" value="super" disabled />
         <span class="title">super early bird (110€)</span>
-        <span class="note">доступно сейчас, всего 5 билетов</span>
+        <span class="note">sold out</span>
       </label>
 
       <label class="option vip">
@@ -27,10 +27,10 @@
         <span class="note">доступно сейчас</span>
       </label>
 
-      <label class="option is-disabled" aria-disabled="true">
-        <input type="radio" name="plan" value="early" disabled />
+      <label class="option">
+        <input type="radio" name="plan" value="early" required />
         <span class="title">early bird (120€)</span>
-        <span class="note">потом будет +35€ за пятницу и +60€ за +1, всего 5 билетов</span>
+        <span class="note">доступно сейчас, +35€ за пятницу и +60€ за +1, всего 5 билетов</span>
       </label>
 
       <label class="option is-disabled" aria-disabled="true">
@@ -40,8 +40,8 @@
       </label>
     </div>
 
-    <div id="superAddons" class="addons" hidden>
-      <p class="addons-title">Допы к super early bird:</p>
+    <div id="earlyAddons" class="addons" hidden>
+      <p class="addons-title">Допы к early bird:</p>
       <label class="addon-option">
         <input type="checkbox" name="plus_one" value="yes" />
         <span>добавить +1 на субботу (+60€)</span>
@@ -49,7 +49,7 @@
       <p class="addons-note">+1 приходит только на субботу и без ночёвки с субботы на воскресенье.</p>
       <label class="addon-option addon-inline">
         <input type="checkbox" name="friday_addon_enabled" value="yes" />
-        <span>добавить ранний заезд в пятницу</span>
+        <span>добавить ранний заезд в пятницу (+35€ за человека)</span>
         <select name="friday_addon_count">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -88,31 +88,31 @@
 </form>
 
 <script>
-  const BASE_PRICE = { super: 110, vip: 350 };
-  const SUPER_ADDONS = { plus_one: 60, friday_addon: 30 };
+  const BASE_PRICE = { early: 120, vip: 350 };
+  const EARLY_ADDONS = { plus_one: 60, friday_addon: 35 };
 
   function updateTotal() {
     const chosen = document.querySelector('input[name="plan"]:checked')?.value;
     const totalEl = document.getElementById('totalPrice');
-    const addonsBlock = document.getElementById('superAddons');
+    const addonsBlock = document.getElementById('earlyAddons');
     const plusOne = document.querySelector('input[name="plus_one"]');
     const fridayAddonEnabled = document.querySelector('input[name="friday_addon_enabled"]');
     const fridayAddonCount = document.querySelector('select[name="friday_addon_count"]');
     if (!totalEl || !addonsBlock || !plusOne || !fridayAddonEnabled || !fridayAddonCount) return;
 
-    const isSuper = chosen === 'super';
-    addonsBlock.hidden = !isSuper;
-    plusOne.disabled = !isSuper;
-    fridayAddonEnabled.disabled = !isSuper;
-    fridayAddonCount.disabled = !isSuper;
+    const isEarly = chosen === 'early';
+    addonsBlock.hidden = !isEarly;
+    plusOne.disabled = !isEarly;
+    fridayAddonEnabled.disabled = !isEarly;
+    fridayAddonCount.disabled = !isEarly;
 
-    if (!isSuper) {
+    if (!isEarly) {
       plusOne.checked = false;
       fridayAddonEnabled.checked = false;
       fridayAddonCount.value = '1';
     }
 
-    fridayAddonCount.disabled = !isSuper || !fridayAddonEnabled.checked;
+    fridayAddonCount.disabled = !isEarly || !fridayAddonEnabled.checked;
 
     if (!chosen) {
       totalEl.textContent = '—';
@@ -120,8 +120,8 @@
     }
 
     let total = BASE_PRICE[chosen] ?? 0;
-    if (isSuper && plusOne.checked) total += SUPER_ADDONS.plus_one;
-    if (isSuper && fridayAddonEnabled.checked) total += Number(fridayAddonCount.value || 1) * SUPER_ADDONS.friday_addon;
+    if (isEarly && plusOne.checked) total += EARLY_ADDONS.plus_one;
+    if (isEarly && fridayAddonEnabled.checked) total += Number(fridayAddonCount.value || 1) * EARLY_ADDONS.friday_addon;
 
     totalEl.textContent = `${total}€`;
   }
