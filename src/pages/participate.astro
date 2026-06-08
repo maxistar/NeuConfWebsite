@@ -6,13 +6,13 @@ const pageTitle = 'Участие';
   <section >
     <p>на самом деле даже не билет, а взнос на покрытие расходов</p>
     <ul>
-      <li><b>early bird</b> — <b>120 евро</b>; ранний заезд в пятницу — <b>+35 евро</b>; привести +1 — <b>+60 евро</b> <i>(5 билетов)</i></li>
-      <li><b>обычная цена</b> — <b>130 евро</b>, ранний заезд в пятницу — <b>+45 евро</b>; привести +1 — <b>+70 евро</b></li>
+      <li><b>early bird</b> — <b>120 евро</b> <i>(уже всё продано)</i></li>
+      <li><b>обычная цена</b> — <b>130 евро</b>; привести +1 — <b>+70 евро</b>; ранний заезд в пятницу — <b>уже всё продано</b></li>
       <li><b>VIP</b>: early bird — <b>350 евро</b>, затем обычная цена — <b>380 евро</b> <i>(уже всё продано)</i></li>
     </ul>
 
-    <p>Сейчас открыты <b>early bird</b> и допы к нему. Остальные опции уже показаны ниже, чтобы было понятно, как дальше будут расти цены.</p>
-    <p><b>+1</b> — это только на дневное время субботы, еда, напитки, доклады, все развлечения, без возможности остаться в ночь на воскресенье. Ночь пт/сб можно добавить и себе, и твоему/твоей +1.</p>
+    <p>Сейчас открыта <b>обычная цена</b>. Early bird и ранний заезд в пятницу уже проданы.</p>
+    <p><b>+1</b> — это только на дневное время субботы, еда, напитки, доклады, все развлечения, без возможности остаться в ночь на воскресенье.</p>
 
     <p>Мы пока маленькие и не раскрученные, поэтому мы проводим конфу под эгидой встречи друзей,
       где все скидываются на аренду дома и еду. Деньги можно закинуть нашим<a href="/contacts/">оргам.</a></p>
@@ -40,10 +40,10 @@ const pageTitle = 'Участие';
           <fieldset>
             <legend>Мой план:</legend>
             <div class="options">
-              <label class="option">
-                <input type="radio" name="plan" value="early" required />
+              <label class="option is-disabled" aria-disabled="true">
+                <input type="radio" name="plan" value="early" disabled />
                 <span class="title">early bird (120€)</span>
-                <span class="note">доступно сейчас, +35€ за пятницу и +60€ за +1, всего 5 билетов</span>
+                <span class="note">уже всё продано</span>
               </label>
 
               <label class="option vip is-disabled" aria-disabled="true">
@@ -52,29 +52,28 @@ const pageTitle = 'Участие';
                 <span class="note">в этот раз уже недоступно</span>
               </label>
 
-              <label class="option is-disabled" aria-disabled="true">
-                <input type="radio" name="plan" value="regular" disabled />
+              <label class="option">
+                <input type="radio" name="plan" value="regular" required />
                 <span class="title">основной билет (130€)</span>
-                <span class="note">позже будет +45€ за пятницу и +70€ за +1</span>
+                <span class="note">доступно сейчас, +70€ за +1; пятница уже продана</span>
               </label>
             </div>
 
-            <div id="earlyAddons" class="addons" hidden>
-              <p class="addons-title">Допы к early bird:</p>
+            <div id="regularAddons" class="addons" hidden>
+              <p class="addons-title">Допы к обычному билету:</p>
               <label class="addon-option">
                 <input type="checkbox" name="plus_one" value="yes" />
-                <span>добавить +1 на субботу (+60€)</span>
+                <span>добавить +1 на субботу (+70€)</span>
               </label>
               <p class="addons-note">+1 приходит только на субботу и без ночёвки с субботы на воскресенье.</p>
               <label class="addon-option addon-inline">
-                <input type="checkbox" name="friday_addon_enabled" value="yes" />
-                <span>добавить ранний заезд в пятницу (+35€ за человека)</span>
-                <select name="friday_addon_count">
+                <input type="checkbox" name="friday_addon_enabled" value="yes" disabled />
+                <span>ранний заезд в пятницу уже продан</span>
+                <select name="friday_addon_count" disabled>
                   <option value="1">1</option>
                   <option value="2">2</option>
                 </select>
               </label>
-              <p class="addons-note">Можно добавить пятницу за себя или за вас двоих, если берёшь +1.</p>
             </div>
 
             <div class="total">
@@ -94,7 +93,7 @@ const pageTitle = 'Участие';
           <fieldset>
             <label class="consent">
               <input type="checkbox" name="policy" required />
-              <span>Я согласна/ен с <a href="/about/#values" target="_blank">правилами и ценностями</a> и понимаю, что эта форма — не платёж, а заявка.</span>
+              <span>Я согласна/ен с <a href="/about/#values" target="_blank">правилами и ценностями</a>, прочитал/а <a href="/privacy/" target="_blank">условия приватности и cookies</a> и понимаю, что данные из формы нужны организаторам только для связи по поводу участия.</span>
             </label>
           </fieldset>
 
@@ -117,31 +116,30 @@ const pageTitle = 'Участие';
 </BaseLayout>
 
 <script>
-  const BASE_PRICE = { early: 120, vip: 350 };
-  const EARLY_ADDONS = { plus_one: 60, friday_addon: 35 };
+  const BASE_PRICE = { regular: 130 };
+  const REGULAR_ADDONS = { plus_one: 70 };
 
   function updateTotal() {
     const chosenValue = document.querySelector('input[name="plan"]:checked')?.value;
     const totalEl = document.getElementById('totalPrice');
-    const addonsBlock = document.getElementById('earlyAddons');
+    const addonsBlock = document.getElementById('regularAddons');
     const plusOne = document.querySelector('input[name="plus_one"]');
     const fridayAddonEnabled = document.querySelector('input[name="friday_addon_enabled"]');
     const fridayAddonCount = document.querySelector('select[name="friday_addon_count"]');
     if (!totalEl || !addonsBlock || !plusOne || !fridayAddonEnabled || !fridayAddonCount) return;
 
-    const isEarly = chosenValue === 'early';
-    addonsBlock.hidden = !isEarly;
-    plusOne.disabled = !isEarly;
-    fridayAddonEnabled.disabled = !isEarly;
-    fridayAddonCount.disabled = !isEarly;
+    const isRegular = chosenValue === 'regular';
+    addonsBlock.hidden = !isRegular;
+    plusOne.disabled = !isRegular;
+    fridayAddonEnabled.disabled = true;
+    fridayAddonCount.disabled = true;
 
-    if (!isEarly) {
+    if (!isRegular) {
       plusOne.checked = false;
-      fridayAddonEnabled.checked = false;
-      fridayAddonCount.value = '1';
     }
 
-    fridayAddonCount.disabled = !isEarly || !fridayAddonEnabled.checked;
+    fridayAddonEnabled.checked = false;
+    fridayAddonCount.value = '1';
 
     if (!chosenValue) {
       totalEl.textContent = '—';
@@ -149,8 +147,7 @@ const pageTitle = 'Участие';
     }
 
     let total = BASE_PRICE[chosenValue] ?? 0;
-    if (isEarly && plusOne.checked) total += EARLY_ADDONS.plus_one;
-    if (isEarly && fridayAddonEnabled.checked) total += Number(fridayAddonCount.value || 1) * EARLY_ADDONS.friday_addon;
+    if (isRegular && plusOne.checked) total += REGULAR_ADDONS.plus_one;
 
     totalEl.textContent = `${total}€`;
   }
