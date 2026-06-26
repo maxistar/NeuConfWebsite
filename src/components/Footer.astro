@@ -6,8 +6,16 @@ import Social from './Social.astro';
 <style>
     footer {
         display: flex;
+        flex-direction: column;
         gap: 0.5rem;
         margin-top: 2rem;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .social-links {
+        display: flex;
+        gap: 0.5rem;
         justify-content: center;
         flex-wrap: wrap;
         align-items: center;
@@ -15,15 +23,22 @@ import Social from './Social.astro';
     a {
         margin: 0;
     }
+    .legal-link {
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.9rem;
+    }
     @media (max-width: 635px) {
-        footer {
+        .social-links {
             gap: 0.35rem;
         }
     }
 </style>
 <footer>
-    <Social platform="github" link="https://github.com/maxistar/NeuConfWebsite/tree/main" />
-    <Social platform="telegram" link="https://t.me/neuconf" />
-    <Social platform="instagram" link="https://www.instagram.com/neuconf_berlin" />
-    <Social platform="contacts" link="/contacts/" />
+    <div class="social-links" aria-label="Социальные сети">
+        <Social platform="github" link="https://github.com/maxistar/NeuConfWebsite/tree/main" />
+        <Social platform="telegram" link="https://t.me/neuconf" />
+        <Social platform="instagram" link="https://www.instagram.com/neuconf_berlin" />
+        <Social platform="contacts" link="/contacts/" />
+    </div>
+    <a class="legal-link" href="/privacy/">приватность и cookies</a>
 </footer>
