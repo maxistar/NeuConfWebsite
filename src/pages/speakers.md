@@ -3,7 +3,77 @@ layout: ../layouts/MarkdownLayout.astro
 title: Спикеры и темы докладов
 ---
 
-<details class="speaker-group">
+<details class="speaker-group" open>
+<summary class="speaker-group-header">
+<p class="speaker-group-kicker">следующая встреча</p>
+<h2>Август<br>2026</h2>
+<p>Два доклада августовской встречи: банки, необанки, финтех и киборги.</p>
+</summary>
+
+<div class="talk-grid">
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/FRENKEL.jpg)
+
+**Дима Френкель**
+</div>
+
+<button class="talk-trigger" type="button" data-dialog-target="talk-frenkel">
+БАНКИ: ОТ КАЗНАЧЕЯ ДО НЕОБАНКА
+</button>
+<dialog class="talk-dialog" id="talk-frenkel">
+<div class="talk-dialog-card">
+<form method="dialog" class="talk-dialog-close">
+<button type="submit" aria-label="Закрыть">×</button>
+</form>
+<p class="talk-dialog-speaker">Дима Френкель</p>
+<h3>БАНКИ: ОТ КАЗНАЧЕЯ ДО НЕОБАНКА</h3>
+<div class="talk-description">
+
+Дима расскажет, что такое банк, как появились банковские институты, зачем им лицензии и регулирование, а также почему не всякая финтех-компания является банком. Через квиз, исторические примеры и современные кейсы посмотрим, как за тысячи лет менялись финансовые посредники: от казначеев и денежных переводов в империях до электронных денег, платёжных сервисов и необанков.
+
+Узнаем, как банки открывают, как они зарабатывают и почему банковский сектор так жёстко регулируется и про разницу между банком, необанком и финтехом.
+
+</div>
+</div>
+</dialog>
+
+</div>
+
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/ARINA.jpeg)
+
+**Арина Борзистая**
+</div>
+
+<button class="talk-trigger" type="button" data-dialog-target="talk-borzistaya">
+КАК СТАТЬ КИБОРГОМ
+</button>
+<dialog class="talk-dialog" id="talk-borzistaya">
+<div class="talk-dialog-card">
+<form method="dialog" class="talk-dialog-close">
+<button type="submit" aria-label="Закрыть">×</button>
+</form>
+<p class="talk-dialog-speaker">Арина Борзистая</p>
+<h3>КАК СТАТЬ КИБОРГОМ</h3>
+<div class="talk-description">
+
+Продолжаем нашу славную добрую традицию звать самых интересных спикерок из самых далёких мест, в этот раз ограничились одной страной хотя бы. Арина пишет PhD в Technische Hochschule Lübeck в области обработки медицинских сигналов.
+
+Обсудим, кто относится к киборгам в самом широком смысле, что и как у человека можно (а иногда и нужно) улучшить, насколько совершенны люди сами по себе, а также — какие примеры киборгов и киборгинь знает история.
+
+</div>
+</div>
+</dialog>
+
+</div>
+</div>
+</details>
+
+<details class="speaker-group speaker-group-archive">
 <summary class="speaker-group-header">
 <p class="speaker-group-kicker">Прошедшая встреча</p>
 <h2>Март<br>2026</h2>
