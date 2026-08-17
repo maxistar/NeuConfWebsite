@@ -7,7 +7,7 @@ title: Спикеры и темы докладов
 <summary class="speaker-group-header">
 <p class="speaker-group-kicker">следующая встреча</p>
 <h2>Август<br>2026</h2>
-<p>Два доклада августовской встречи: банки, необанки, финтех и киборги.</p>
+<p>Четыре доклада августовской встречи: банки, необанки, финтех, киборги, шоссейные велосипеды и безопасность Wi-Fi.</p>
 </summary>
 
 <div class="talk-grid">
@@ -44,7 +44,7 @@ title: Спикеры и темы докладов
 <div class="talk" style="text-align: justify">
 <div class="speaker">
   
-![](/images/ARINA.jpeg)
+![](/images/ARINA.png)
 
 **Арина Борзистая**
 </div>
@@ -64,6 +64,64 @@ title: Спикеры и темы докладов
 Продолжаем нашу славную добрую традицию звать самых интересных спикерок из самых далёких мест, в этот раз ограничились одной страной хотя бы. Арина пишет PhD в Technische Hochschule Lübeck в области обработки медицинских сигналов.
 
 Обсудим, кто относится к киборгам в самом широком смысле, что и как у человека можно (а иногда и нужно) улучшить, насколько совершенны люди сами по себе, а также — какие примеры киборгов и киборгинь знает история.
+
+</div>
+</div>
+</dialog>
+
+</div>
+
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/DIMA_MITTOV.png)
+
+[**Дмитрий Миттов**](https://github.com/dmittov)
+</div>
+
+<button class="talk-trigger" type="button" data-dialog-target="talk-homo-lycra">
+Homo Lycra
+</button>
+<dialog class="talk-dialog" id="talk-homo-lycra">
+<div class="talk-dialog-card">
+<form method="dialog" class="talk-dialog-close">
+<button type="submit" aria-label="Закрыть">×</button>
+</form>
+<p class="talk-dialog-speaker">Дмитрий Миттов</p>
+<h3>Homo Lycra</h3>
+<p class="talk-dialog-subtitle">Правила выживания в стае велосипедистов</p>
+<div class="talk-description">
+
+Только самые горячие вопросы и самые неожиданные ответы. Кому будет больно до/во время/после гонки. Как сэкономить пару тыщ евро, используя простой советский... Кто такие MAMIL-ы и как стать "своим" с первого взгляда. С Дмитрием обсудим всё, что вам не нужно знать про шоссейные велосипеды, что вы стеснялись спросить и что казалось ну совершенно неочевидным.
+
+</div>
+</div>
+</dialog>
+
+</div>
+
+<div class="talk" style="text-align: justify">
+<div class="speaker">
+  
+![](/images/ZEN.png)
+
+[**ZEN**](https://zenembed.com/)
+</div>
+
+<button class="talk-trigger" type="button" data-dialog-target="talk-wifi">
+Wi-Fi ПОД МИКРОСКОПОМ
+</button>
+<dialog class="talk-dialog" id="talk-wifi">
+<div class="talk-dialog-card">
+<form method="dialog" class="talk-dialog-close">
+<button type="submit" aria-label="Закрыть">×</button>
+</form>
+<p class="talk-dialog-speaker">ZEN</p>
+<h3>Wi-Fi ПОД МИКРОСКОПОМ</h3>
+<p class="talk-dialog-subtitle">безопасность беспроводных сетей.</p>
+<div class="talk-description">
+
+Всё про низкоуровневую работу адаптеров, WPA3 и практические атаки. На изолированном стенде посмотрим анализ трафика, деаутентификацию и поддельную точку доступа, а также обсудим способы защиты. А в конце доклада ещё и увлекательный квест организуем.
 
 </div>
 </div>
@@ -551,6 +609,12 @@ Zen расскажет про Bare-Metal и Reverse-Engineering, как рабо
     margin: 0 0 1rem;
     font-size: clamp(1.35rem, 2.2vw, 1.8rem);
     line-height: 1.1;
+  }
+  .talk-dialog-subtitle {
+    margin: -0.55rem 0 1rem;
+    color: #45591F;
+    font-weight: 700;
+    line-height: 1.25;
   }
   .talk-description {
     margin-top: 0;
