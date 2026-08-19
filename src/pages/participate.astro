@@ -7,7 +7,8 @@ const pageTitle = 'Участие';
     <p>на самом деле даже не билет, а взнос на покрытие расходов</p>
     <ul>
       <li><s><b>early bird</b> — <b>120 евро</b>; ранний заезд в пятницу — <b>+35 евро</b>; привести +1 — <b>+60 евро</b></s> <i>(sold out)</i></li>
-      <li><b>обычная цена</b> — <b>130 евро</b>, ранний заезд в пятницу — <b>+45 евро</b>; привести +1 — <b>+70 евро</b></li>
+      <li><s><b>обычная цена</b> — <b>130 евро</b>, ранний заезд в пятницу — <b>+45 евро</b>; привести +1 — <b>+70 евро</b></s> <i>(sold out)</i></li>
+      <li><b>Last Call</b> — <b>145 евро</b>; привести +1 — <b>+80 евро</b></li>
       <li><s><b>VIP</b>: early bird — <b>350 евро</b>, затем обычная цена — <b>380 евро</b></s> <i>(sold out)</i></li>
     </ul>
 
@@ -51,8 +52,8 @@ const pageTitle = 'Участие';
 
               <label class="option">
                 <input type="radio" name="plan" value="regular" required />
-                <span class="title">основной билет (130€)</span>
-                <span class="note">доступно сейчас, +70€ за +1; пятница уже продана</span>
+                <span class="title">основной билет (145€)</span>
+                <span class="note">доступно сейчас, +80€ за +1; пятница уже продана</span>
               </label>
             </div>
 
@@ -60,7 +61,7 @@ const pageTitle = 'Участие';
               <p class="addons-title">Допы к обычному билету:</p>
               <label class="addon-option">
                 <input type="checkbox" name="plus_one" value="yes" />
-                <span>добавить +1 на субботу (+70€)</span>
+                <span>добавить +1 на субботу (+80€)</span>
               </label>
               <p class="addons-note">+1 приходит только на субботу и без ночёвки с субботы на воскресенье.</p>
               <label class="addon-option addon-inline">
@@ -113,8 +114,8 @@ const pageTitle = 'Участие';
 </BaseLayout>
 
 <script>
-  const BASE_PRICE = { regular: 130 };
-  const REGULAR_ADDONS = { plus_one: 70 };
+  const BASE_PRICE = { regular: 145 };
+  const REGULAR_ADDONS = { plus_one: 80 };
 
   function updateTotal() {
     const chosenValue = document.querySelector('input[name="plan"]:checked')?.value;
